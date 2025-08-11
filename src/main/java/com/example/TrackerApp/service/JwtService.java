@@ -15,7 +15,7 @@ import java.util.Base64;
 import java.util.Date;
 @Service
 public class JwtService {
-    @Value("${secretKey}")
+    @Value("${app.secret-key}")
     private String secretKey;
     private Key key;
     @PostConstruct
@@ -51,3 +51,4 @@ public class JwtService {
         }
     }
 }
+
