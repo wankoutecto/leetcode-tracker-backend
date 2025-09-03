@@ -115,7 +115,7 @@ public class PbService {
         pbRepo.save(problem);
     }
 
-    public void moveToDueToday(String title){
+    public void moveToDueToday(String title) {
         UserLogin currentUser = getCurrentUser();
         Problem problem = getProblemByTitle(title);
         List<ProblemDto> problemDtoList = getUserProblemDueToday();
@@ -130,23 +130,22 @@ public class PbService {
         LocalDate today = LocalDate.now();
         boolean updated = false;
         ReviewStatus reviewStatus = problem.getReviewStatus();
-        if(reviewStatus.getD3Date().isAfter(today) && !reviewStatus.isD3Done()){
+        if(!reviewStatus.isD3Done()){
             reviewStatus.setD3Date(today);
             updated = true;
-        }else if(reviewStatus.getD7Date().isAfter(today) && !reviewStatus.isD7Done()){
+        }else if(!reviewStatus.isD7Done()){
             reviewStatus.setD7Date(today);
             updated = true;
-        } else if (reviewStatus.getD14Date().isAfter(today) && !reviewStatus.isD14Done()) {
+        } else if (!reviewStatus.isD14Done()) {
             reviewStatus.setD14Date(today);
             updated = true;
-        } else if (reviewStatus.getD28Date().isAfter(today) && !reviewStatus.isD28Done()) {
+        } else if (!reviewStatus.isD28Done()) {
             reviewStatus.setD28Date(today);
             updated = true;
         }
 
         if(!updated){
-            throw new IllegalArgumentException
-                    ("You can't move problem to today list.");
+            throw new ResourceAlreadyExistsException("All problem due date has passed");
         }
         pbRepo.save(problem);
     }

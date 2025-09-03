@@ -128,7 +128,7 @@ public class PbController {
     }
 
     @PostMapping("addToDueToday/{title}")
-    public ResponseEntity<?> moveToDueToday(@PathVariable String title){
+    public ResponseEntity<ApiResponse> moveToDueToday(@PathVariable String title){
         try {
             pbService.moveToDueToday(title);
             return ResponseEntity.ok(new ApiResponse(null, "Add to Due Today"));

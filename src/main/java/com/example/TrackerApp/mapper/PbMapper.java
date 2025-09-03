@@ -50,7 +50,7 @@ public class PbMapper {
     //helper function
     public Integer findNumberReview(Problem pb){
         List<Problem> problemList = List.of(pb);
-        Integer number = problemList
+        return problemList
                 .stream()
                 .map(Problem::getReviewStatus)
                 .flatMap(r -> Stream.of(
@@ -61,7 +61,6 @@ public class PbMapper {
                 .filter(b->!b)
                 .mapToInt(b ->1)
                 .sum();
-        return number;
     }
 
 }

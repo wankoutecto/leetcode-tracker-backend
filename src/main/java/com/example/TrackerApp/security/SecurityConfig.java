@@ -3,6 +3,7 @@ package com.example.TrackerApp.security;
 import com.example.TrackerApp.filter.JwtFilterChain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,12 +65,14 @@ public class SecurityConfig {
     //Example: React app runs at http://localhost:5173
     //backend runs at http://localhost:8080
 
+    @Value("${app.allowed-origins}")
+    private String allowedOrigins;
+
     //✅Fix CORS
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        System.out.println(">>> CORS CONFIG  <<<");
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost:3000", "http://54.145.219.157:3000"));
+        config.setAllowedOrigins(List.of(allowedOrigins.split(",")));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // Required if you use cookies or auth headers

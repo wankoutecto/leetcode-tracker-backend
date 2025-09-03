@@ -15,9 +15,10 @@ import java.util.Base64;
 import java.util.Date;
 @Service
 public class JwtService {
-    @Value("${secretKey}")
+    @Value("${app.secret-key}")
     private String secretKey;
     private Key key;
+    
     @PostConstruct
     public void initKey(){
         byte[] bytes = Base64.getDecoder().decode(secretKey);
@@ -28,7 +29,7 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 60000 * 15))
+                .setExpiration(new Date(System.currentTimeMillis() + 60000 * 60 * 24))
                 .signWith(key)
                 .compact();
     }

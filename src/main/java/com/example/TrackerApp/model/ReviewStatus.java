@@ -24,9 +24,9 @@ public class ReviewStatus {
         this.d28Done = false;
 
         LocalDate solved = LocalDate.now();
-        this.setD3Date(solved.plusDays(3));
-        this.setD7Date(solved.plusDays(7));
-        this.setD14Date(solved.plusDays(14));
+        this.setD3Date(solved.plusDays(7));
+        this.setD7Date(solved.plusDays(14));
+        this.setD14Date(solved.plusDays(21));
         this.setD28Date(solved.plusDays(28));
     }
 }
